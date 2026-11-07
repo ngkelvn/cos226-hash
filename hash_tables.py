@@ -19,9 +19,9 @@ import os
 import time
 
 # SETTINGS: they change for each attempt
-ATTEMPT = 1                # which optimization attempt this run represents
+ATTEMPT = 2                # which optimization attempt this run represents
 METHOD = "chaining"        # "chaining" (linked list) or linear probing
-HASH = "sum"               # "sum" (poor), "poly" (good), "fnv" (good)
+HASH = "poly"              # "sum" (poor), "poly" (good), "fnv" (good)
 SIZE = 15013               # number of slots
 
 
