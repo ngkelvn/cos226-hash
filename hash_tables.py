@@ -19,11 +19,28 @@ import os
 import time
 
 # SETTINGS: they change for each attempt
-ATTEMPT = 3                # which optimization attempt this run represents
+ATTEMPT = 4                # which optimization attempt this run represents
 METHOD = "probing"         # "chaining" (linked list) or linear probing
-HASH = "sum"               # "sum" (poor), "poly" (good), "fnv" (good)
+HASH = "fnv"               # "sum" (poor), "poly" (good), "fnv" (good)
 SIZE = 30011               # number of slots
 
+
+# ATTEMPT LOG
+# 1: chaining + sum hash, size 15013. Baseline poor hash.
+#    Title: 11,262 empty (75.0%), 45,598 collisions.
+#    Quote: 12,290 empty (81.9%), 56,718 collisions.
+# 2: chaining + poly hash, size 15013. Only the hash changed; the
+#    position-weighted hash spreads keys. Collisions down 73% / 87%.
+#    Title: 7,063 empty (47.0%), 12,118 collisions.
+#    Quote: 5,555 empty (37.0%), 7,650 collisions.
+# 3: probing + sum hash, size 30011. Poor hash with linear probing:
+#    keys merge into one giant cluster, so each insert walks the whole run.
+#    Title: 15,011 empty (50.0%), 87,842,966 collisions, 5.89 s.
+#    Quote: 15,011 empty (50.0%), 92,757,007 collisions, 6.34 s.
+# 4: probing + fnv hash, size 30011. Only the hash changed from attempt 3.
+#    FNV-1a spreads keys evenly so clusters stay short.
+#    Title: 15,011 empty (50.0%), 17,290 collisions, 0.0254 s.
+#    Quote: 15,011 empty (50.0%), 7,891 collisions, 0.0402 s.
 
 
 def sum_hash(key):
