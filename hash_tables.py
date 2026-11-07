@@ -19,10 +19,10 @@ import os
 import time
 
 # SETTINGS: they change for each attempt
-ATTEMPT = 4                # which optimization attempt this run represents
-METHOD = "probing"         # "chaining" (linked list) or linear probing
+ATTEMPT = 5                # which optimization attempt this run represents
+METHOD = "chaining"        # "chaining" (linked list) or linear probing
 HASH = "fnv"               # "sum" (poor), "poly" (good), "fnv" (good)
-SIZE = 30011               # number of slots
+SIZE = 11251               # number of slots
 
 
 # ATTEMPT LOG
@@ -41,6 +41,11 @@ SIZE = 30011               # number of slots
 #    FNV-1a spreads keys evenly so clusters stay short.
 #    Title: 15,011 empty (50.0%), 17,290 collisions, 0.0254 s.
 #    Quote: 15,011 empty (50.0%), 7,891 collisions, 0.0402 s.
+# 5: chaining + fnv hash, size 11251 (prime above 0.75n). Optimized the
+#    best of 1-4 (attempt 2): stronger hash and a smaller table, since
+#    chaining can hold more records than buckets. Lowest wasted space.
+#    Title: 4,111 empty (36.5%), 14,771 collisions, 0.0277 s.
+#    Quote: 2,982 empty (26.5%), 10,045 collisions, 0.0433 s.
 
 
 def sum_hash(key):
